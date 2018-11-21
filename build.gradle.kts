@@ -12,7 +12,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.noarg") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.allopen") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("com.github.johnrengelman.shadow") version "2.0.4"
+    id("com.github.johnrengelman.shadow") version "4.0.2"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.boot") version "2.1.0.RELEASE"
     id("com.github.ben-manes.versions") version "0.20.0"
@@ -71,7 +71,7 @@ dependencies {
     compileOnly("io.github.benas:random-beans:3.7.0")
 
     implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
-    implementation("io.netty:netty-all:4.1.31.Final")
+    implementation("io.netty:netty-all:5.0.0.Alpha2")
 
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
