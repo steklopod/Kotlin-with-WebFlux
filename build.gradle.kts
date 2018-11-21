@@ -15,12 +15,14 @@ plugins {
     id("com.github.johnrengelman.shadow") version "2.0.4"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.boot") version "2.1.0.RELEASE"
+    id("com.github.ben-manes.versions") version "0.20.0"
 //    id("org.junit.platform.gradle.plugin") version "1.2.0"
 }
 
-//application {
-//    mainClassName = "functional.Application"
-//}
+application {
+    mainClassName = "com.example.demo.Application.kt"
+}
+
 
 tasks {
     withType<KotlinCompile> {
@@ -78,6 +80,7 @@ dependencies {
 
     //mustache
     implementation("com.samskivert:jmustache")
+    implementation("com.github.ben-manes:gradle-versions-plugin:0.20.0")
 
     //spring security for webflux
     implementation("org.springframework.security:spring-security-core")
