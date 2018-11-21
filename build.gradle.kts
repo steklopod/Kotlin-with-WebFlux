@@ -1,4 +1,5 @@
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+import org.gradle.internal.impldep.org.junit.platform.launcher.EngineFilter.includeEngines
 import org.gradle.kotlin.dsl.version
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.noarg.gradle.NoArgExtension
@@ -14,12 +15,12 @@ plugins {
     id("com.github.johnrengelman.shadow") version "2.0.4"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.boot") version "2.1.0.RELEASE"
-    id("org.junit.platform.gradle.plugin") version "1.2.0"
+//    id("org.junit.platform.gradle.plugin") version "1.2.0"
 }
 
-application {
-    mainClassName = "functional.Application"
-}
+//application {
+//    mainClassName = "functional.Application"
+//}
 
 tasks {
     withType<KotlinCompile> {
@@ -28,11 +29,14 @@ tasks {
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
+    getByName<Test>("test") {
+        useJUnitPlatform {
+            includeEngines("junit-jupiter")
+            excludeEngines("junit-vintage")
+        }
+    }
 }
 
-val test by tasks.getting(Test::class) {
-    useJUnitPlatform()
-}
 
 dependencyManagement {
     imports {
@@ -60,6 +64,10 @@ dependencies {
     implementation("org.springframework:spring-context") {
         exclude(module = "spring-aop")
     }
+    compileOnly("org.springframework.boot:spring-boot-configuration-processor")
+    compileOnly("org.tuxdude.logback.extensions:logback-colorizer:1.0.1")
+    compileOnly("io.github.benas:random-beans:3.7.0")
+
     implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
     implementation("io.netty:netty-all:4.1.31.Final")
 
@@ -99,12 +107,20 @@ dependencies {
     testImplementation("org.springframework:spring-test") {
         exclude(module = "junit")
     }
-    testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.junit.platform:junit-platform-engine")
+    testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // glytching.github.io/junit-extensions/index
+    testCompile("io.github.glytching:junit-extensions:2.3.0")
 
     //DataBases
 //    runtimeOnly("org.hsqldb:hsqldb")
 //    runtimeOnly("mysql:mysql-connector-java")
+//    runtimeOnly("com.h2database:h2:1.4.197")
+//    runtimeOnly("org.postgresql:postgresql:42.2.2")
+//    implementation("com.zaxxer:HikariCP:3.1.0")
 }
