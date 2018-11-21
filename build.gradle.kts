@@ -14,7 +14,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "2.0.4"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.boot") version "2.1.0.RELEASE"
-    id("org.junit.platform.gradle.plugin") version "1.0.2"
+    id("org.junit.platform.gradle.plugin") version "1.2.0"
 }
 
 application {
@@ -39,6 +39,7 @@ dependencyManagement {
         mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.0.RELEASE")
     }
 }
+
 configure<NoArgExtension> {
     annotation("org.springframework.data.mongodb.core.mapping.Document")
 }
@@ -60,15 +61,14 @@ dependencies {
         exclude(module = "spring-aop")
     }
     implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
+    implementation("io.netty:netty-all:4.1.31.Final")
 
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
 
-    implementation("io.netty:netty-all:4.1.31.Final")
-//    implementation("io.projectreactor.ipc:reactor-netty")
-
+    //mustache
     implementation("com.samskivert:jmustache")
 
     //spring security for webflux
@@ -87,14 +87,15 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1")
+
     //slf4j and logback
     implementation("org.slf4j:slf4j-api")
     implementation("org.slf4j:jcl-over-slf4j")
     implementation("ch.qos.logback:logback-classic")
 
-    implementation("com.google.code.findbugs:jsr305:3.0.2") // Needed for now, could be removed when KT-19419 will be fixed
+//    implementation("com.google.code.findbugs:jsr305:3.0.2") // Needed for now, could be removed when KT-19419 will be fixed
 
-    //test
+    //TEST
     testImplementation("org.springframework:spring-test") {
         exclude(module = "junit")
     }

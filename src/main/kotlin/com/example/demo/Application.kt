@@ -14,10 +14,8 @@ fun main(args: Array<String>) {
 class Application {
 
     private val httpHandler: HttpHandler
-
     private val server: HttpServer
-
-    private var nettyContext:  DisposableServer? = null
+    private var nettyContext: DisposableServer? = null
 
     constructor(port: Int = 8888) {
         val context = GenericApplicationContext()
@@ -29,11 +27,13 @@ class Application {
     }
 
     fun start() {
-        nettyContext =  server.handle(ReactorHttpHandlerAdapter(httpHandler)).bindNow()
+        nettyContext = server.handle(ReactorHttpHandlerAdapter(httpHandler)).bindNow()
     }
+
     fun startAndAwait() {
         server.handle(ReactorHttpHandlerAdapter(httpHandler)).bindNow().onDispose().block()
     }
+
     fun stop() {
         nettyContext?.disposeNow()
     }

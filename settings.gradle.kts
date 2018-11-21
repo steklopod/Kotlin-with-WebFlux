@@ -1,5 +1,5 @@
-// Workaround to make the JUnit Platform Gradle Plugin available using the `plugins` DSL
-// See https://github.com/junit-team/junit5/issues/768
+// Обходной путь, чтобы сделать JUnit платформы Gradle плагин доступен с помощью DSL плагинов
+
 pluginManagement {
     repositories {
         maven("https://jcenter.bintray.com/")
