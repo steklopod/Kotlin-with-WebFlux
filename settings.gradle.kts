@@ -1,1 +1,1 @@
-rootProject.name = "Kotlin with WebFlux"
+rootProject.name = "spring-reactive-kotlin-sample"
